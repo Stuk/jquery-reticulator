@@ -23,47 +23,51 @@
             gutterWidth: 9,
             gridAlign: "center",
             guideColor: "#00FF00",
-            guideOpacity: 0.8
+            guideOpacity: 0.5
         };
         
         var options = $.extend(defaults, options);
 
         var reticulator = {
             gridCont: '',
-            gridCount: 0,
             gridCols: ( options.layoutWidth - (options.layoutColumns * options.gutterWidth) ) / options.layoutColumns
         }
         reticulator.calculateGrid = function(){
+            var cummulativecount = 0
             // grid container
             reticulator.gridCont = document.createElement("div");
-            reticulator.gridCont.setAttribute('id', 'reticulator_grid_container');
             $(reticulator.gridCont).css({
                 width: $(document).width() + "px",
                 position: "fixed",
                 textAlign: options.gridAlign,
                 opacity: options.guideOpacity,
-                top: 0
+                top: 0,
+                zIndex: 1000000
             });
             
             var gridLayout = document.createElement("div");
             $(gridLayout).css({
                 width: options.layoutWidth + "px",
-                margin: "0px auto"
+                margin: "0px auto",
+                position: "relative"
             })
             $(reticulator.gridCont).append(gridLayout);
             
-            for (var i = 0; i < options.layoutColumns * 2; i++) {
+            for (var i = 0; i < (options.layoutColumns * 2); i++) {
                 var gridGuide = document.createElement("div");
                 $(gridGuide).css({
+                    position: "absolute",
                     height: $(document).height() + "px",
                     borderLeft: "1px solid " + options.guideColor,
-                    marginLeft: reticulator.gridCount + "px"
+                    left: cummulativecount + "px"
                 });
                 
-                if(i%2 == 0) reticulator.gridCount = reticulator.gridCount + reticulator.gridCols
-                else reticulator.gridCount = reticulator.gridCount + reticulator.gutterWidth
-                
-                console.log(reticulator.gridCols + reticulator.gridCount)
+                if(i%2 == 0) {
+                    cummulativecount = Math.round(cummulativecount) + Math.round(reticulator.gridCols);
+                } else {
+                    cummulativecount = Math.round(cummulativecount) + Math.round(options.gutterWidth);
+                }
+
                 $(gridLayout).append(gridGuide);
             }
             
@@ -74,11 +78,26 @@
         
         // resize the grid container
         reticulator.resizeGridCont = function() {
+            $(reticulator.gridCont).children().children().height( $(document).height() + "px" );
             $(reticulator.gridCont).width( $(document).width() + "px" );
+        };
+        
+        reticulator.toggleGrid = function(){
+            $(reticulator.gridCont).toggle();
         }
+        
         $(window).resize(function(){ reticulator.resizeGridCont(); });
         
-        // 
+        $(document).bind("keydown", function(e) { 
+            var key = String.fromCharCode(e.keyCode);
+            if(reticulator.key == null) reticulator.key = e.keyCode;	
+            else if(reticulator.key == "18" && key == "A") reticulator.toggleGrid();
+        } );
+        
+        $(document).bind("keyup", function(e) { 
+            reticulator.key = null;
+        } );
+        
         reticulator.calculateGrid();
     };
     
