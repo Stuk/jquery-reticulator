@@ -30,7 +30,7 @@
 
         var reticulator = {
             gridCont: '',
-            gridCols: ( options.layoutWidth - (options.layoutColumns * options.gutterWidth) ) / options.layoutColumns
+            gridCols: ( options.layoutWidth - ((options.layoutColumns - 1) * options.gutterWidth) ) / options.layoutColumns
         }
         reticulator.calculateGrid = function(){
             var cummulativecount = 0
@@ -71,8 +71,8 @@
                     left: cummulativecount + "px"
                 });
                 
-                if(i%2 == 0) cummulativecount = Math.round(cummulativecount) + Math.round(reticulator.gridCols);
-                else cummulativecount = Math.round(cummulativecount) + Math.round(options.gutterWidth);
+                if(i%2 == 0) cummulativecount = cummulativecount + reticulator.gridCols;
+                else cummulativecount = cummulativecount + options.gutterWidth;
                 
                 $(gridLayout).append(gridGuide);
             }
