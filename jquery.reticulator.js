@@ -23,7 +23,7 @@
             gutterWidth: 9,
             gridAlign: "center",
             guideColor: "#00FF00",
-            guideOpacity: 0.5
+            guideOpacity: 0.7
         };
         
         var options = $.extend(defaults, options);
@@ -37,18 +37,24 @@
             // grid container
             reticulator.gridCont = document.createElement("div");
             $(reticulator.gridCont).css({
-                width: $(document).width() + "px",
+                width: $(window).width() + "px",
                 position: "fixed",
                 textAlign: options.gridAlign,
                 opacity: options.guideOpacity,
                 top: 0,
+                left: 0,
                 zIndex: 1000000
             });
             
             var gridLayout = document.createElement("div");
+            
+            if(options.gridAlign == "center") marginval = "0px auto"
+            else if(options.gridAlign == "left") marginval = "0px"
+            else if(options.gridAlign == "right") marginval = "0px 0px 0px auto"
+
             $(gridLayout).css({
                 width: options.layoutWidth + "px",
-                margin: "0px auto",
+                margin: marginval,
                 position: "relative"
             })
             $(reticulator.gridCont).append(gridLayout);
@@ -62,12 +68,9 @@
                     left: cummulativecount + "px"
                 });
                 
-                if(i%2 == 0) {
-                    cummulativecount = Math.round(cummulativecount) + Math.round(reticulator.gridCols);
-                } else {
-                    cummulativecount = Math.round(cummulativecount) + Math.round(options.gutterWidth);
-                }
-
+                if(i%2 == 0) cummulativecount = Math.round(cummulativecount) + Math.round(reticulator.gridCols);
+                else cummulativecount = Math.round(cummulativecount) + Math.round(options.gutterWidth);
+                
                 $(gridLayout).append(gridGuide);
             }
             
@@ -88,15 +91,16 @@
         
         $(window).resize(function(){ reticulator.resizeGridCont(); });
         
+        // bind the key combination alt + a
         $(document).bind("keydown", function(e) { 
             var key = String.fromCharCode(e.keyCode);
-            if(reticulator.key == null) reticulator.key = e.keyCode;	
+            if(reticulator.key == null) reticulator.key = e.keyCode;
             else if(reticulator.key == "18" && key == "A") reticulator.toggleGrid();
-        } );
+        });
         
         $(document).bind("keyup", function(e) { 
             reticulator.key = null;
-        } );
+        });
         
         reticulator.calculateGrid();
     };
