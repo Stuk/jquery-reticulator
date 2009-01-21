@@ -18,18 +18,18 @@ The grid will always be over the content.
 Yes, you can! (now)
 ------------------
 
-  * Use multiple grids
-  * Toggle the grids visibility with alt + a
-  * Eeehm... anything else
+- Use multiple grids
+- Toggle the grids visibility with alt + a
+- Eeehm... anything else
 
 
 Yes, you will!
 -------------
 
-  * Use solid grids
-  * Visit a website (at least a post) with examples and all this stuff.
-  * See beautiful test (thanks to [jshoulda](http://jshoulda.scriptia.net/))
-  * Use it as bookmarklet (I'm not sure about that)
+- Use solid grids
+- Visit a website (at least a post) with examples and all this stuff.
+- See beautiful test (thanks to [jshoulda](http://jshoulda.scriptia.net/))
+- Use it as bookmarklet (I'm not sure about that)
 
 Yes, I know
 -----------
@@ -49,12 +49,12 @@ This will build a basic centered grid (width => 951, columns => 16, gutter => 9)
 
 You can configure your own grid using:
 
-  * **layoutWidth**: default 951
-  * **layoutColumns**: default 16 
-  * **gutterWidth**: default 9,
-  * **gridAlign**: default center, you can use also left and right
-  * **guideColor**: default #00FF00 like fireworks
-  * **guideOpacity**: default 0.7
+- **layoutWidth**: default 951
+- **layoutColumns**: default 16 
+- **gutterWidth**: default 9,
+- **gridAlign**: default center, you can use also left and right
+- **guideColor**: default #00FF00 like fireworks
+- **guideOpacity**: default 0.7
 
 
 More to come!
