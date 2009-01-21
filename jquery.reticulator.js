@@ -59,7 +59,10 @@
             })
             $(reticulator.gridCont).append(gridLayout);
             
-            for (var i = 0; i < (options.layoutColumns * 2); i++) {
+            if(options.gutterWidth == 0) guides = options.layoutColumns;
+            else guides = options.layoutColumns * 2;
+            
+            for (var i = 0; i < guides; i++) {
                 var gridGuide = document.createElement("div");
                 $(gridGuide).css({
                     position: "absolute",
