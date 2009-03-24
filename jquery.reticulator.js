@@ -16,81 +16,21 @@
 
 (function($) {
     // configuration
-    $.reticulator = function(options) {
-        var defaults = {
-            layoutWidth: 951,
-            layoutColumns: 16,
-            gutterWidth: 9,
-            gridAlign: "center",
-            guideColor: "#00FF00",
-            guideOpacity: 0.7
-        };
+    var defaults = {
+        layoutWidth: 951,
+        layoutColumns: 16,
+        gutterWidth: 9,
+        gridAlign: "center",
+        guideColor: "#00FF00",
+        guideOpacity: 0.7
+    }
 
-        var options = $.extend(defaults, options);
+    var options;
+    var reticulator = {};
 
-        var reticulator = {
-            gridCont: '',
-            gridCols: ( options.layoutWidth - ((options.layoutColumns - 1) * options.gutterWidth) ) / options.layoutColumns
-        }
-        reticulator.calculateGrid = function(){
-            var cummulativecount = 0
-            // grid container
-            reticulator.gridCont = document.createElement("div");
-            $(reticulator.gridCont).css({
-                width: $(window).width() + "px",
-                position: "fixed",
-                textAlign: options.gridAlign,
-                opacity: options.guideOpacity,
-                top: 0,
-                left: 0,
-                zIndex: 1000000
-            });
-
-            var gridLayout = document.createElement("div");
-
-            if(options.gridAlign == "center") marginval = "0px auto"
-            else if(options.gridAlign == "left") marginval = "0px"
-            else if(options.gridAlign == "right") marginval = "0px 0px 0px auto"
-
-            $(gridLayout).css({
-                width: options.layoutWidth + "px",
-                margin: marginval,
-                position: "relative"
-            })
-            $(reticulator.gridCont).append(gridLayout);
-
-            if(options.gutterWidth == 0) guides = options.layoutColumns;
-            else guides = options.layoutColumns * 2;
-
-            for (var i = 0; i < guides; i++) {
-                var gridGuide = document.createElement("div");
-                $(gridGuide).css({
-                    position: "absolute",
-                    height: $(document).height() + "px",
-                    borderLeft: "1px solid " + options.guideColor,
-                    left: cummulativecount + "px"
-                });
-
-                if(i%2 == 0) cummulativecount = cummulativecount + reticulator.gridCols;
-                else cummulativecount = cummulativecount + options.gutterWidth;
-
-                $(gridLayout).append(gridGuide);
-            }
-
-            $(document.body).prepend(reticulator.gridCont);
-
-            // grid container
-        };
-
-        // resize the grid container
-        reticulator.resizeGridCont = function() {
-            $(reticulator.gridCont).children().children().height( $(document).height() + "px" );
-            $(reticulator.gridCont).width( $(document).width() + "px" );
-        };
-
-        reticulator.toggleGrid = function(){
-            $(reticulator.gridCont).toggle();
-        }
+    $.reticulator = function(o) {
+        reticulator.init(o);
+        reticulator.calculateGrid();
 
         $(window).resize(function(){ reticulator.resizeGridCont(); });
 
@@ -107,8 +47,85 @@
         $(document).bind("keyup", function(e) {
             reticulator.key = null;
         });
-
-        reticulator.calculateGrid();
     };
+
+    // Initialises options and resets grid width, etc.
+    reticulator.init = function(o) {
+        defaults = {
+            layoutWidth: 951,
+            layoutColumns: 16,
+            gutterWidth: 9,
+            gridAlign: "center",
+            guideColor: "#00FF00",
+            guideOpacity: 0.7
+        }
+
+        options = $.extend(defaults, o);
+
+        reticulator.gridCont = '';
+        reticulator.gridCols = ( options.layoutWidth - (
+            (options.layoutColumns - 1) * options.gutterWidth) ) /
+            options.layoutColumns;
+    }
+
+    reticulator.calculateGrid = function(){
+        var cummulativecount = 0
+        // grid container
+        reticulator.gridCont = document.createElement("div");
+        $(reticulator.gridCont).css({
+            width: $(window).width() + "px",
+            position: "fixed",
+            textAlign: options.gridAlign,
+            opacity: options.guideOpacity,
+            top: 0,
+            left: 0,
+            zIndex: 1000000
+        });
+
+        var gridLayout = document.createElement("div");
+
+        if(options.gridAlign == "center") marginval = "0px auto"
+        else if(options.gridAlign == "left") marginval = "0px"
+        else if(options.gridAlign == "right") marginval = "0px 0px 0px auto"
+
+        $(gridLayout).css({
+            width: options.layoutWidth + "px",
+            margin: marginval,
+            position: "relative"
+        })
+        $(reticulator.gridCont).append(gridLayout);
+
+        if(options.gutterWidth == 0) guides = options.layoutColumns;
+        else guides = options.layoutColumns * 2;
+
+        for (var i = 0; i < guides; i++) {
+            var gridGuide = document.createElement("div");
+            $(gridGuide).css({
+                position: "absolute",
+                height: $(document).height() + "px",
+                borderLeft: "1px solid " + options.guideColor,
+                left: cummulativecount + "px"
+            });
+
+            if(i%2 == 0) cummulativecount = cummulativecount + reticulator.gridCols;
+            else cummulativecount = cummulativecount + options.gutterWidth;
+
+            $(gridLayout).append(gridGuide);
+        }
+
+        $(document.body).prepend(reticulator.gridCont);
+
+        // grid container
+    };
+
+    // resize the grid container
+    reticulator.resizeGridCont = function() {
+        $(reticulator.gridCont).children().children().height( $(document).height() + "px" );
+        $(reticulator.gridCont).width( $(document).width() + "px" );
+    };
+
+    reticulator.toggleGrid = function(){
+        $(reticulator.gridCont).toggle();
+    }
 
 })(jQuery);
