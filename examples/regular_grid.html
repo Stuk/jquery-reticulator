@@ -25,6 +25,10 @@ body {
    line-height: 1.2;
 }
 
+h2 {
+   margin: 0;
+}
+
 #container {
    width: 951px;
    margin: 0px auto;
@@ -32,17 +36,35 @@ body {
 
 #header
 {
+   float: left;
+
    background: #8AB4C8;
+   width: 100%;
+   margin-bottom: 1.5em;
 }
 
-#container h1 {
+#container h1, #header strong {
+   float: left;
    width: 150px;
    margin: 0;
-   padding: 10px;
+   padding: 0.3em 10px;
 
    background: #7396A9;
    color: #FFFFFF;
    text-align: center;
+}
+
+#header strong {
+   float: right;
+   padding: 0.225em 10px;
+   background: #90BED1;
+   font-size: 1.5em;
+}
+
+#header strong span
+{
+   font-size: 0.6em;
+   display: block;
 }
 
 #mainContent {
@@ -60,14 +82,14 @@ body {
    font-size: 0.8em;
    text-align: left;
 }
-
 </style>
 </head>
 
 <body>
  <div id="container">
   <div id="header">
-   <h1>wadus</h1>
+   <h1>Regular</h1>
+   <strong>Alt + a <span>to toggle</span></strong>
   </div>
 
   <div id="mainContent">
