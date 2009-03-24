@@ -49,6 +49,14 @@
         });
     };
 
+    // Allows the grid background to be set on elements
+    $.fn.reticulator = function(o)
+    {
+        reticulator.init(o);
+        var data = reticulator.generateBackground();
+        this.css('backgroundImage', 'url('+data+')');
+    }
+
     // Initialises options and resets grid width, etc.
     reticulator.init = function(o) {
         defaults = {
@@ -127,6 +135,25 @@
 
     reticulator.toggleGrid = function(gridCont){
         $(gridCont).toggle();
+    }
+
+    // Draw the grid background to a canvas, and then return the data URL
+    // Does not work in Chrome or Safari because they do not implement
+    // toDatURL() yet https://bugs.webkit.org/show_bug.cgi?id=23687 ,
+    // and naturally doesn't work in IE
+    reticulator.generateBackground = function() {
+        var ctx = document.createElement('canvas').getContext('2d');
+
+        ctx.canvas.width = reticulator.gridCols + options.gutterWidth;
+        ctx.canvas.height = 1;
+
+        ctx.globalAlpha = options.guideOpacity;
+        ctx.fillStyle = options.guideColor;
+        ctx.fillRect(0, 0, reticulator.gridCols, 1);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(reticulator.gridCols, 0, options.gutterWidth, 1);
+
+        return ctx.canvas.toDataURL();
     }
 
 })(jQuery);
