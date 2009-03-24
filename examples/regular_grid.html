@@ -3,43 +3,86 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <title>Regular Grid</title>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+ <script src="../jquery.reticulator.js" type="text/javascript" charset="utf-8"></script>
 
-    <title>Regular Grid</title>
+<script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function($) {
+        $.reticulator();
+    });
+</script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../jquery.reticulator.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-        jQuery(document).ready(function($) {
-            $.reticulator();
-        });
-    </script>
-    
-    <style type="text/css" media="screen">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #content {
-            width: 951px;
-            margin: 0px auto;
-            background: #8AB4C8;
-        }
+<style type="text/css" media="screen">
+body {
+   margin: 0;
+   padding: 0;
 
-        #content h1 {
-            width: 160px;
-            padding: 10px;
-            color: #FFFFFF;
-            background: #7396A9;
-            text-align: center;
-        }
-    </style>
+   /* From http://sitepointstatic.com/examples/font-stacks/font-stacks.txt */
+   font-family: Palatino, Palladio, "Book Antiqua", Baskerville, "Bookman Old Style", "Bitstream Charter", "Nimbus Roman No9 L", Garamond, "Apple Garamond", "ITC Garamond Narrow", "New Century Schoolbook", "Century Schoolbook", "Century Schoolbook L", Georgia, serif;
+   color: #222;
+   line-height: 1.2;
+}
+
+#container {
+   width: 951px;
+   margin: 0px auto;
+}
+
+#header
+{
+   background: #8AB4C8;
+}
+
+#container h1 {
+   width: 150px;
+   margin: 0;
+   padding: 10px;
+
+   background: #7396A9;
+   color: #FFFFFF;
+   text-align: center;
+}
+
+#mainContent {
+   margin: 0 180px;
+   text-align: justify;
+}
+
+.note {
+   float: left;
+   width: 150px;
+   padding: 10px;
+   margin-left: -180px;
+
+   background: #EEE;
+   font-size: 0.8em;
+   text-align: left;
+}
+
+</style>
 </head>
 
 <body>
-    <div id="content">
-        <h1>wadus</h1>
-    </div>
+ <div id="container">
+  <div id="header">
+   <h1>wadus</h1>
+  </div>
+
+  <div id="mainContent">
+   <h2>Testing</h2>
+
+   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra velit quis urna. Curabitur quis justo eu justo ornare gravida. Mauris sit amet elit. Sed accumsan. Integer massa lacus, pharetra non, mattis in, cursus eget, nunc. Phasellus vestibulum, nisl quis consequat vehicula, ligula purus laoreet ligula, accumsan placerat nunc lorem nec elit. Curabitur dolor libero, sodales nec, aliquet et, congue ut, est.</p>
+
+   <div class="note">
+   Note: pretium vulputate lacus. Donec posuere mi in justo. Etiam vulputate.
+   </div>
+
+   <p>Aenean nibh erat, suscipit a, dignissim eu, sodales lobortis, elit. In ullamcorper est nec quam. Duis scelerisque luctus tortor. Vivamus a orci imperdiet mi viverra tempor. Donec pretium, purus nec rhoncus laoreet, nibh eros placerat est, at sodales massa tortor nec quam. Nulla facilisi. Fusce aliquet vulputate libero. Nullam pretium vulputate lacus. Donec posuere mi in justo. Etiam vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sapien.</p>
+
+   <p>Pellentesque pulvinar. Nam feugiat aliquet orci. Maecenas a tortor non mi ultrices fringilla. Sed dui quam, fermentum non, tincidunt ac, imperdiet et, tellus. Maecenas feugiat. In et odio. Nunc eget velit. Ut velit diam, vestibulum in, ultrices id, faucibus ut, neque. Nam luctus velit quis nibh. Integer ante nisl, aliquam et, sagittis a, suscipit ac, magna. Nam est leo, elementum et, pretium nec, tempus vitae, ipsum. Fusce tempor libero quis metus. Quisque ut enim. Sed in nisi.</p>
+  </div>
+ </div>
 </body>
 </html>
