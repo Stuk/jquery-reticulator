@@ -30,9 +30,9 @@
 
     $.reticulator = function(o) {
         reticulator.init(o);
-        reticulator.calculateGrid();
+        var grid = reticulator.calculateGrid();
 
-        $(window).resize(function(){ reticulator.resizeGridCont(); });
+        $(window).resize(function(){ reticulator.resizeGridCont(grid); });
 
         // bind the key combination alt + a
         $(document).bind("keydown", function(e) {
@@ -40,7 +40,7 @@
             if(reticulator.key == null) reticulator.key = e.keyCode;
             else if(reticulator.key == "18" && key == "A") {
                 (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
-                reticulator.toggleGrid();
+                reticulator.toggleGrid(grid);
             }
         });
 
@@ -116,16 +116,17 @@
         $(document.body).prepend(reticulator.gridCont);
 
         // grid container
+        return reticulator.gridCont;
     };
 
     // resize the grid container
-    reticulator.resizeGridCont = function() {
-        $(reticulator.gridCont).children().children().height( $(document).height() + "px" );
-        $(reticulator.gridCont).width( $(document).width() + "px" );
+    reticulator.resizeGridCont = function(gridCont) {
+        $(gridCont).children().children().height( $(document).height() + "px" );
+        $(gridCont).width( $(document).width() + "px" );
     };
 
-    reticulator.toggleGrid = function(){
-        $(reticulator.gridCont).toggle();
+    reticulator.toggleGrid = function(gridCont){
+        $(gridCont).toggle();
     }
 
 })(jQuery);
