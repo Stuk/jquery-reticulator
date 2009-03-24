@@ -25,7 +25,7 @@
             guideColor: "#00FF00",
             guideOpacity: 0.7
         };
-        
+
         var options = $.extend(defaults, options);
 
         var reticulator = {
@@ -45,9 +45,9 @@
                 left: 0,
                 zIndex: 1000000
             });
-            
+
             var gridLayout = document.createElement("div");
-            
+
             if(options.gridAlign == "center") marginval = "0px auto"
             else if(options.gridAlign == "left") marginval = "0px"
             else if(options.gridAlign == "right") marginval = "0px 0px 0px auto"
@@ -58,10 +58,10 @@
                 position: "relative"
             })
             $(reticulator.gridCont).append(gridLayout);
-            
+
             if(options.gutterWidth == 0) guides = options.layoutColumns;
             else guides = options.layoutColumns * 2;
-            
+
             for (var i = 0; i < guides; i++) {
                 var gridGuide = document.createElement("div");
                 $(gridGuide).css({
@@ -70,43 +70,45 @@
                     borderLeft: "1px solid " + options.guideColor,
                     left: cummulativecount + "px"
                 });
-                
+
                 if(i%2 == 0) cummulativecount = cummulativecount + reticulator.gridCols;
                 else cummulativecount = cummulativecount + options.gutterWidth;
-                
+
                 $(gridLayout).append(gridGuide);
             }
-            
+
             $(document.body).prepend(reticulator.gridCont);
 
             // grid container
         };
-        
+
         // resize the grid container
         reticulator.resizeGridCont = function() {
             $(reticulator.gridCont).children().children().height( $(document).height() + "px" );
             $(reticulator.gridCont).width( $(document).width() + "px" );
         };
-        
+
         reticulator.toggleGrid = function(){
             $(reticulator.gridCont).toggle();
         }
-        
+
         $(window).resize(function(){ reticulator.resizeGridCont(); });
-        
+
         // bind the key combination alt + a
-        $(document).bind("keydown", function(e) { 
+        $(document).bind("keydown", function(e) {
             var key = String.fromCharCode(e.keyCode);
             if(reticulator.key == null) reticulator.key = e.keyCode;
-            else if(reticulator.key == "18" && key == "A") reticulator.toggleGrid();
+            else if(reticulator.key == "18" && key == "A") {
+                (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+                reticulator.toggleGrid();
+            }
         });
-        
-        $(document).bind("keyup", function(e) { 
+
+        $(document).bind("keyup", function(e) {
             reticulator.key = null;
         });
-        
+
         reticulator.calculateGrid();
     };
-    
-})(jQuery);
 
+})(jQuery);
